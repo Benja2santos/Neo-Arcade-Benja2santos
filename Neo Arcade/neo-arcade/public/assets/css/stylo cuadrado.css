@@ -1,0 +1,368 @@
+/* VARIABLES Y TEMAS */
+:root {
+  --bg:      #0a0a14;
+  --bg2:     #141428;
+  --cyan:    #00fff5;
+  --magenta: #ff00ff;
+  --yellow:  #ffe600;
+  --violet:  #7a00ff;
+  --text:    #e0e0ff;
+  --border:  rgba(0, 255, 245, 0.3);
+}
+
+[data-theme="light"] {
+  --bg:     #f0f0ff;
+  --bg2:    #ffffff;
+  --text:   #0a0a14;
+  --border: rgba(122, 0, 255, 0.3);
+}
+
+/* BASE */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* EFECTO SCANLINE */
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  animation: scan 8s linear infinite;
+  opacity: 0.2;
+  z-index: 1000;
+}
+
+@keyframes scan {
+  0%   { top: 0; }
+  100% { top: 100%; }
+}
+
+/* CABECERA */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  text-shadow: 0 0 10px var(--cyan);
+}
+
+.logo span {
+  color: var(--magenta);
+  font-size: 0.9rem;
+}
+
+.players-edit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.players-edit input {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--yellow);
+  padding: 6px 10px;
+  width: 120px;
+  text-transform: uppercase;
+}
+
+.vs {
+  color: var(--magenta);
+}
+
+/* BOTONES */
+.neon-btn {
+  background: transparent;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  padding: 8px 16px;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--cyan);
+  transition: 0.2s;
+  font-family: inherit;
+}
+
+.neon-btn:hover {
+  box-shadow: 0 0 20px var(--cyan);
+}
+
+.neon-btn.small {
+  font-size: 0.8rem;
+}
+
+.neon-btn.danger {
+  border-color: var(--magenta);
+  color: var(--magenta);
+}
+
+/* BOTÓN DE TEMA */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: inherit;
+}
+
+.theme-toggle:hover {
+  box-shadow: 0 0 20px var(--cyan);
+  transform: scale(1.08);
+}
+
+/* PESTAÑAS */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  flex: 1;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  color: var(--text);
+  padding: 14px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--bg);
+  color: var(--cyan);
+  box-shadow: 0 -2px 15px var(--cyan);
+  border-color: var(--cyan);
+}
+
+/* MARCADOR */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(90deg, rgba(122, 0, 255, 0.1), rgba(0, 255, 245, 0.1));
+}
+
+.score-card {
+  border: 1px solid var(--border);
+  padding: 10px;
+  background: var(--bg2);
+}
+
+.score-card h4 {
+  color: var(--yellow);
+  font-size: 0.75rem;
+  margin-bottom: 6px;
+}
+
+.score-card .pts {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* CONTENEDOR DE JUEGOS */
+.game-container {
+  padding: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.game-view {
+  display: none;
+}
+
+.game-view.active {
+  display: block;
+}
+
+/* TA-TE-TI */
+.board-tateti {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 8px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.cell-tateti {
+  width: 100px;
+  height: 100px;
+  border: 1px solid var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+  background: var(--bg2);
+}
+
+.cell-tateti.win {
+  box-shadow: 0 0 25px var(--yellow);
+  border-color: var(--yellow);
+}
+
+/* CUATRO EN LÍNEA */
+.board-cuatro {
+  display: grid;
+  grid-template-columns: repeat(7, 70px);
+  gap: 6px;
+  justify-content: center;
+  background: var(--bg2);
+  padding: 12px;
+  border: 1px solid var(--border);
+  margin: 20px auto;
+  width: fit-content;
+}
+
+.col-cuatro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.slot {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+.slot.filled-J1 {
+  background: var(--yellow);
+  box-shadow: 0 0 15px var(--yellow);
+}
+
+.slot.filled-J2 {
+  background: var(--magenta);
+  box-shadow: 0 0 15px var(--magenta);
+}
+
+/* SUDOKU */
+.board-sudoku {
+  display: grid;
+  grid-template-columns: repeat(9, 48px);
+  gap: 0;
+  justify-content: center;
+  margin: 20px auto;
+  border: 2px solid var(--cyan);
+  width: fit-content;
+}
+
+.cell-sudoku {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(0, 255, 245, 0.2);
+  background: var(--bg2);
+  color: var(--text);
+  text-align: center;
+  font-size: 1.1rem;
+  font-family: inherit;
+}
+
+.cell-sudoku.fixed {
+  background: rgba(122, 0, 255, 0.15);
+  color: var(--yellow);
+  font-weight: 700;
+}
+
+.cell-sudoku.error {
+  outline: 2px solid var(--magenta);
+}
+
+/* CONTROLES Y ESTADO */
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.status {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--cyan);
+  min-height: 24px;
+}
+
+/* PIE DE PÁGINA */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+.hint {
+  opacity: 0.5;
+  font-size: 0.75rem;
+}
+
+/* RESPONSIVE (móvil) */
+@media (max-width: 600px) {
+  .board-tateti {
+    grid-template-columns: repeat(3, 80px);
+  }
+
+  .cell-tateti {
+    width: 80px;
+    height: 80px;
+  }
+
+  .board-cuatro {
+    grid-template-columns: repeat(7, 44px);
+  }
+
+  .slot {
+    width: 44px;
+    height: 44px;
+  }
+
+  .board-sudoku {
+    grid-template-columns: repeat(9, 34px);
+  }
+
+  .cell-sudoku {
+    width: 34px;
+    height: 34px;
+  }
+}
